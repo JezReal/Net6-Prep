@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using Net6_Prep.CourseNS.repositories;
+using Net6_Prep.CourseNS.services;
 using Net6_Prep.Data;
 using Yoh.Text.Json.NamingPolicies;
 
@@ -21,6 +23,10 @@ builder.Services.AddDbContext<CourseDatabase>(options =>
     var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
+
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<ICourseService, CourseService>();
 
 var app = builder.Build();
 
