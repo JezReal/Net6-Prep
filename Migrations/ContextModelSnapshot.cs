@@ -8,7 +8,7 @@ using Net6_Prep.Data;
 
 namespace Net6Prep.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(CourseDatabase))]
     partial class ContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
@@ -30,7 +30,7 @@ namespace Net6Prep.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("Courses");
+                    b.ToTable("Courses", (string)null);
                 });
 #pragma warning restore 612, 618
         }

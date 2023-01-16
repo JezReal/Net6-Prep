@@ -9,7 +9,7 @@ using Net6_Prep.Data;
 
 namespace Net6Prep.Migrations
 {
-    [DbContext(typeof(Context))]
+    [DbContext(typeof(CourseDatabase))]
     [Migration("20230116070259_InitialMigration")]
     partial class InitialMigration
     {
