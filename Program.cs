@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+using Net6_Prep.Data;
 using Yoh.Text.Json.NamingPolicies;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -9,8 +11,15 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddControllers().AddJsonOptions(options => {
+builder.Services.AddControllers().AddJsonOptions(options =>
+{
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicies.SnakeCaseLower;
+});
+
+builder.Services.AddDbContext<Context>(options =>
+{
+    var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
+    options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
 });
 
 var app = builder.Build();
