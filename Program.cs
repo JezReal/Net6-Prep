@@ -16,7 +16,7 @@ builder.Services.AddControllers().AddJsonOptions(options =>
     options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicies.SnakeCaseLower;
 });
 
-builder.Services.AddDbContext<Context>(options =>
+builder.Services.AddDbContext<CourseDatabase>(options =>
 {
     var connectionString = builder.Configuration.GetConnectionString("DatabaseConnection");
     options.UseMySql(connectionString, ServerVersion.AutoDetect(connectionString));
