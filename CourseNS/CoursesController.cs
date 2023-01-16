@@ -32,11 +32,6 @@ public class CoursesController : ControllerBase
     {
         var course = _courseService.GetCourseById(courseId);
 
-        if (course == null)
-        {
-            return NotFound(new { Message = "Course not found" });
-        }
-
         return Ok(_mapper.Map<GetCourseDto>(course));
     }
 

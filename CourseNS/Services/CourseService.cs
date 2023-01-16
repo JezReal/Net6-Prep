@@ -1,6 +1,7 @@
 using AutoMapper;
 using Net6_Prep.CourseNS.dtos;
 using Net6_Prep.CourseNS.repositories;
+using Net6_Prep.Exceptions;
 using Net6_Prep.Models;
 
 namespace Net6_Prep.CourseNS.services;
@@ -24,6 +25,13 @@ public class CourseService : ICourseService
 
     public void DeleteCourse(long id)
     {
+        var course = _courseRepository.GetCourseById(id);
+
+        if (course == null)
+        {
+            throw new ResourceNotFoundException($"Course id {id} not found.");
+        }
+
         _courseRepository.DeleteCourse(id);
     }
 
@@ -32,13 +40,27 @@ public class CourseService : ICourseService
         return _courseRepository.GetAllCourses();
     }
 
-    public Course? GetCourseById(long id)
+    public Course GetCourseById(long id)
     {
-        return _courseRepository.GetCourseById(id);
+        var course = _courseRepository.GetCourseById(id);
+
+        if (course == null)
+        {
+            throw new ResourceNotFoundException($"Course id {id} not found.");
+        }
+
+        return course;
     }
 
     public void UpdateCourse(long id, Course course)
     {
+        var courseModel = _courseRepository.GetCourseById(id);
+
+        if (courseModel == null)
+        {
+            throw new ResourceNotFoundException($"Course id {id} not found.");
+        }
+
         _courseRepository.UpdateCourse(id, course);
     }
 }
